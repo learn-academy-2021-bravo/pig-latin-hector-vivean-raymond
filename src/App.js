@@ -21,81 +21,65 @@ class App extends Component {
     // the variable "userInput" will contain the text input from the user modified into an array of words
     // no need to change this variable
     let userInput = this.state.phrase.split(" ")
-    console.log("userInput:", userInput)
+    //console.log("userInput:", userInput)
 
     // now that we have an array of words, we can map over the array and access each word
     let translatedWordsArray = userInput.map(currentWord => {
       // ACTION ITEM: use "currentWord" as a starting point for your code
-      console.log("currentWord:", currentWord)
+      //console.log("currentWord:", currentWord)
 
       let vowelsArray = currentWord.split("").filter(vowel => {
         return vowel === "a" || vowel === "e" || vowel === "i" || vowel === "o" || vowel === "u"
       })
-      console.log("vowelsArray:", vowelsArray)
+      //console.log("vowelsArray:", vowelsArray)
 
-      // your code here!
-      // Use the starter code 
-      // check to see if the current element start with the vowel. 
-      // if element start with a vowel add "way" to the end.
-      // .map over current word and check if element .indexOf "vowelsArray" at [0] === 0. 
-      // Return the elment with "way" added. 
-      // Using concat method. 
-      // 1. Words that begin with consonant. 
-       // Where the placement of the first vowel is. 
-        //   Pineapple- if the index of zero is doesn’t begin with a vowel.
-        //    Identify the placement of the first vowel, ways to identify, indexOf -built in method. 
-        // Consonants
-        // We would map through the element and check if the vowels Array against the current words Array and we know the index is greater than [0]
-        // then we know thats its not an vowel in the beginning. words that dont begin with a vowel find the index of vowel.
-        // we then use a for loop on that element and we can shift and push the first character until we hit a vowel and we  return it immiediately. 
-        // "Qu" we find the first non vowel and shift the letters from the "qu" 
-        // Shift the letter before the vowel to the end:
-        // If we see "QU" if they are first letters -move to the  end. Then whatever the next vowel would be Add “ay” to the end:
-        // If we see "SQU" if they are first letters -move to the  end. Then whatever the next vowel would be Add “ay” to the end:
-        // If we see "Y" at the frist index,- they are first letters -move to the  end. Then whatever the next vowel would be Add “ay” to the end:
-        // If "Y" is at the last index and thier are no other vowels, then "Y" movies to the first index, and then add "ay"
-        //
-
-      
-        // ineapplep
-        // Add “ay” to the end:
-        // ineapplepay
-
-        // 5. Everything before the vowel we want to move to the end. 
-
-
-
-        let vowelsArray = currentWord.split("").filter(vowel => {
-          return vowel === "a" || vowel === "e" || vowel === "i" || vowel === "o" || vowel === "u"
-        })
-        let returnArray = [];
-  
-        let vowels = ["a", "e", "i", "o", "u"];
-  
-        for (let i = 0; i < currentWord.length; ++i){
-          if(vowels.includes(currentWord[0])){
-            returnArray.push(currentWord.concat("way"));
-          
-          }
+     
+        
        // console.log("vowelsArray:", vowelsArray)
-       // console.log(currentWord.indexOf(vowelsArray[0]))
-  
+       //console.log(currentWord.indexOf(vowelsArray[0]))
+      
         // your code here!
-  
+      
+        let vowels = ["a", "e", "i", "o", "u"];
+        let leftSlice;
+        let rightSlice;
+        
+        //checks for sometimes y
+          if(currentWord.indexOf(vowelsArray[0]) < 0){
+            let idx = currentWord.indexOf("y");
+            leftSlice = currentWord.slice(0,idx);
+            rightSlice = currentWord.slice(idx);
+            return `${rightSlice}${leftSlice}ay`;
+          }
+
+        //checks first letter for vowel
+        if(vowels.includes(currentWord[0])){
+          return `${currentWord}way`;
+        } 
+        
+        //checks if there is a qu and Q is the first letter
+        if(currentWord.includes("qu") && currentWord[0] === "q"){
+          leftSlice = currentWord.slice(0, currentWord.indexOf(vowelsArray[1]));
+          rightSlice = currentWord.slice(currentWord.indexOf(vowelsArray[1]));
+          return `${rightSlice}${leftSlice}ay`
+        } 
+          //checks for qu
+         if(currentWord.includes("qu")){
+           leftSlice = currentWord.slice(0, currentWord.indexOf(vowelsArray[0]));
+           rightSlice = currentWord.slice(currentWord.indexOf(vowelsArray[0]));
+           return `${rightSlice}${leftSlice}ay`
+        } 
+         //checks for constanats at the first letter 
+         if(!vowels.includes(currentWord[0])){
+           leftSlice = currentWord.slice(0, currentWord.indexOf(vowelsArray[0]));
+           rightSlice = currentWord.slice(currentWord.indexOf(vowelsArray[0]));
+          return `${rightSlice}${leftSlice}ay` ;
+          //console.log(leftSlice);
+        }
   
        
         
-        const consonantTest = (letter) => {
-          let consonant =letter.split("") // everything you put in your parameter and putting it into an array
-          consonant.map(letter) 
-          console.log(consonant)
-          if(letter.charAt(0) !== "a" && letter.charAt(0) !== "e" && letter.charAt(0) !== "i" && letter.charAt(0) !== "o" && letter.charAt(0) !== "u"){
-            letter.slice(1)
-          }
-        
-        
-        
-        }
+       
 
       // Remember: console.log is your friend :)
 
